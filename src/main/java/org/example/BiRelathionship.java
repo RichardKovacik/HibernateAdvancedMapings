@@ -27,7 +27,11 @@ public class BiRelathionship {
 
                 //commit transaction
                 session.getTransaction().commit();
-            }finally {
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            finally {
+                session.close();
                 factory.close();
             }
         }

@@ -11,7 +11,7 @@ public class Adress {
     private String country;
     @Column
     private  String city;
-    @OneToOne(mappedBy = "adress",cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "adress",cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     private Instructor instructor;
 
     public Instructor getInstructor() {
