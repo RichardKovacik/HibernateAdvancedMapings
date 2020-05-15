@@ -11,6 +11,16 @@ public class Adress {
     private String country;
     @Column
     private  String city;
+    @OneToOne(mappedBy = "adress",cascade = CascadeType.ALL)
+    private Instructor instructor;
+
+    public Instructor getInstructor() {
+        return instructor;
+    }
+
+    public void setInstructor(Instructor instructor) {
+        this.instructor = instructor;
+    }
 
     public Long getId() {
         return id;

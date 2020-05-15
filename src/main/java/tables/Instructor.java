@@ -13,7 +13,7 @@ public class Instructor {
     private String lastname;
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "adressId")
-    private Adress adressId;
+    private Adress adress;
 
     public Long getId() {
         return id;
@@ -40,11 +40,11 @@ public class Instructor {
     }
 
     public Adress getAdressId() {
-        return adressId;
+        return adress;
     }
 
     public void setAdressId(Adress adressId) {
-        this.adressId = adressId;
+        this.adress = adressId;
     }
 
     public Instructor() {
@@ -61,7 +61,7 @@ public class Instructor {
                 "id=" + id +
                 ", firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
-                ", adressId=" + adressId +
+                ", adressId=" + adress +
                 '}';
     }
 }
