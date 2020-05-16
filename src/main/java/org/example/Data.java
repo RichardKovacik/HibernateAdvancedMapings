@@ -9,6 +9,12 @@ public class Data {
    private List<String> lastnames= Arrays.asList("Novy","Lahky","Velky","Kovacz","Bielik");
    private List<String> cities=Arrays.asList("Trnava","Bratislava","Kosice","Nitra","Piestany");
    private List<String> countries=Arrays.asList("Slovakia","Czechia","Macedonia","USA","Russia");
+   private List<String> cources=Arrays.asList("Hibernate","Spring Boot","Spring Security","Spring Mvc","JavaScript",
+           "Python","Java","Lambda expressions","CSS","Git","Maven","Docker");
+
+    public List<String> getCources() {
+        return cources;
+    }
 
     public List<String> getNames() {
         return names;

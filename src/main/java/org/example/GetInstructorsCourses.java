@@ -4,34 +4,30 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import tables.Adress;
+import tables.Course;
 import tables.Instructor;
 
-/**
- * Hello world!
- *
- */
-public class SaveObject extends Data {
+
+public class GetInstructorsCourses {
     public static void main( String[] args ) {
         //creating SessionFactory
         SessionFactory factory= new Configuration()
                 .configure("hibernate.cfg.xml")
                 .addAnnotatedClass(Instructor.class)
                 .addAnnotatedClass(Adress.class)
+                .addAnnotatedClass(Course.class)
                 .buildSessionFactory();
         //create session
         Session session=factory.getCurrentSession();
-        //create object to acces data
-        Data data=new Data();
         try {
-            //create objects
-            Instructor instructor=new Instructor(getRandomData(data.getNames()),getRandomData(data.getLastnames()));
-            Adress adress=new Adress(getRandomData(data.getCountries()),getRandomData(data.getCities()));
-            //associate the objects
-            instructor.setAdressId(adress);
+            Long id =4L;
             // start transaction
             session.beginTransaction();
-            //save object  @OneToOne(cascade = CascadeType.ALL) because of this save adress object too
-            session.save(instructor);
+            //get Instructor from db
+            Instructor instructor=session.get(Instructor.class,id);
+            System.out.println("Instruktor lastname: "+instructor.getLastname());
+            //display instructor cources
+            System.out.println("Instructor courses: "+instructor.getCourses());
             //commit transaction
             session.getTransaction().commit();
         }catch (Exception e){
@@ -42,4 +38,5 @@ public class SaveObject extends Data {
             session.close();
         }
     }
+
 }

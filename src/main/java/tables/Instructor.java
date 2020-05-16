@@ -1,6 +1,8 @@
 package tables;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Instructor {
@@ -14,6 +16,34 @@ public class Instructor {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "adressId")
     private Adress adress;
+    @OneToMany(mappedBy = "instructor",
+    cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    private List<Course> courses;
+
+    public void add(Course course){
+        if (courses==null){
+            courses= new ArrayList<>();
+        }
+        courses.add(course);
+        course.setInstructor(this);
+
+    }
+
+    public Adress getAdress() {
+        return adress;
+    }
+
+    public void setAdress(Adress adress) {
+        this.adress = adress;
+    }
+
+    public List<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
+    }
 
     public Long getId() {
         return id;

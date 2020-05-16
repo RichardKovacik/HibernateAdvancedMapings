@@ -17,7 +17,7 @@ public class DeleteObject {
         //create session
         Session session=factory.getCurrentSession();
         try {
-            Long id =1L;
+            Long id =6L;
             // start transaction
             session.beginTransaction();
             Instructor instructor=session.get(Instructor.class,id);
