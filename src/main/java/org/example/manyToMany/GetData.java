@@ -1,13 +1,11 @@
-package org.example;
+package org.example.manyToMany;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import tables.Adress;
-import tables.Course;
-import tables.Instructor;
+import tables.*;
 
-public class OneToManyC extends Data {
+public class GetData {
     public static void main(String[] args) {
         //creating SessionFactory
         SessionFactory factory = new Configuration()
@@ -15,22 +13,18 @@ public class OneToManyC extends Data {
                 .addAnnotatedClass(Instructor.class)
                 .addAnnotatedClass(Adress.class)
                 .addAnnotatedClass(Course.class)
+                .addAnnotatedClass(Review.class)
+                .addAnnotatedClass(Student.class)
                 .buildSessionFactory();
         //create session
         Session session = factory.getCurrentSession();
         try {
-            Long id = 4L;
-            //create Data object to acces data from Data.class
-            Data data = new Data();
+            long idS=1L;
             // start transaction
             session.beginTransaction();
-            //get Instructor from db
-            Instructor instructor = session.get(Instructor.class, id);
-            //creating course to save it to db
-            Course course = new Course(getRandomData(data.getCources()));
-            instructor.add(course);
-            //save course
-            session.save(course);
+            //get student from table
+            Student student=session.get(Student.class,idS);//studen s id 1
+            System.out.println("Student "+student.getLastname()+" absolvoval kurzy: "+student.getCourses());
             //commit transaction
             session.getTransaction().commit();
         } catch (Exception e) {
@@ -40,9 +34,4 @@ public class OneToManyC extends Data {
             session.close();
         }
     }
-
-    }
-
-
-
-
+}

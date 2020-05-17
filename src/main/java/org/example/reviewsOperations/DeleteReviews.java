@@ -1,4 +1,4 @@
-package org.example;
+package org.example.reviewsOperations;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -6,8 +6,9 @@ import org.hibernate.cfg.Configuration;
 import tables.Adress;
 import tables.Course;
 import tables.Instructor;
+import tables.Review;
 
-public class OneToManyC extends Data {
+public class DeleteReviews {
     public static void main(String[] args) {
         //creating SessionFactory
         SessionFactory factory = new Configuration()
@@ -15,22 +16,19 @@ public class OneToManyC extends Data {
                 .addAnnotatedClass(Instructor.class)
                 .addAnnotatedClass(Adress.class)
                 .addAnnotatedClass(Course.class)
+                .addAnnotatedClass(Review.class)
                 .buildSessionFactory();
         //create session
         Session session = factory.getCurrentSession();
         try {
-            Long id = 4L;
-            //create Data object to acces data from Data.class
-            Data data = new Data();
+            Long id = 1L;
             // start transaction
             session.beginTransaction();
-            //get Instructor from db
-            Instructor instructor = session.get(Instructor.class, id);
-            //creating course to save it to db
-            Course course = new Course(getRandomData(data.getCources()));
-            instructor.add(course);
-            //save course
-            session.save(course);
+            //get Course from db
+            Review review=session.get(Review.class,id);
+
+            System.out.println("Deleting review: " + review.getComent());
+            session.delete(review);
             //commit transaction
             session.getTransaction().commit();
         } catch (Exception e) {
@@ -40,9 +38,4 @@ public class OneToManyC extends Data {
             session.close();
         }
     }
-
-    }
-
-
-
-
+}
